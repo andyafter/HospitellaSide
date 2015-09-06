@@ -1,5 +1,21 @@
-<ion-view view-title="Search">
-  <ion-content>
-    <h1>Search</h1>
+<ion-view view-title="Create">
+  <ion-content ng-controller="AppCtrl">
+    <div class="list">
+
+      <label class="item item-input" type="item-text-wrap" >
+        <input type="text" placeholder="Name" ng-model="form.name">
+      </label>
+      <label class="item item-input" type="item-text-wrap" >
+        <input type="text" placeholder="Addres Line 1" ng-model="form.address_1">
+      </label>
+      <label class="item item-input" type="item-text-wrap" >
+        <input type="text" placeholder="Address Line 2" ng-model="form.address_2">
+      </label>
+    </div>
+    <button class="button button-small button-outline button-positive" ng-click="create(form)">Create Clinic</button>
+
+    <p id="info"></p>
+
+
   </ion-content>
 </ion-view>

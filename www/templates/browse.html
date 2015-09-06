@@ -1,5 +1,13 @@
-<ion-view view-title="Browse">
+<ion-view view-title="Update">
   <ion-content>
-    <h1>Browse</h1>
+    <div class="list">
+
+      <label class="item item-input" ng-repeat="param in paramlist" type="item-text-wrap" >
+        <input type="text" placeholder="{{param}}" id="{{param}}">
+      </label>
+      <button class="button button-small button-outline button-positive" ng-click="update()">Update Clinic</button>
+
+      <p id="updateinfo"></p>
+    </div>
   </ion-content>
 </ion-view>
