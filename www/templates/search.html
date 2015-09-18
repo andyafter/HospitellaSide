@@ -1,21 +1,24 @@
-<ion-view view-title="Create">
-  <ion-content ng-controller="AppCtrl">
-    <div class="list">
-
+<ion-view view-title="Search">
+  <ion-content>
+  <div class="list">
       <label class="item item-input" type="item-text-wrap" >
         <input type="text" placeholder="Name" ng-model="form.name">
       </label>
-      <label class="item item-input" type="item-text-wrap" >
-        <input type="text" placeholder="Addres Line 1" ng-model="form.address_1">
-      </label>
-      <label class="item item-input" type="item-text-wrap" >
-        <input type="text" placeholder="Address Line 2" ng-model="form.address_2">
-      </label>
     </div>
-    <button class="button button-small button-outline button-positive" ng-click="create(form)">Create Clinic</button>
-
-    <p id="info"></p>
-
-
+    <button class="button button-small button-outline button-positive" ng-click="search(form)">Search</button>
+    <div class="card" id="card" style="display: none;">
+      <div class="item item-divider" id="cardheader">
+      </div>
+      <div class="item item-text-wrap" id="cardtext">
+          <p id="address1"> <p>
+          <p id="address2"> <p>
+          <p id="estate"> <p>
+          <p id="telephone"> <p>
+      </div>
+      <div class="item item-divider" id="cardfooter">
+          I'm a Footer in a Card!
+      </div>
+     </div>
+    
   </ion-content>
 </ion-view>

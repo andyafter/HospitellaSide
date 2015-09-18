@@ -24,7 +24,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-  .state('app', {
+
+    .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
@@ -41,28 +42,29 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   })
 
   .state('app.browse', {
-      url: '/browse',
+      url: '/update',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/update.html',
+          controller: 'AppCtrl'
         }
       }
     })
     .state('app.playlists', {
-      url: '/playlists',
+      url: '/delete',
       views: {
         'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+          templateUrl: 'templates/delete.html',
+          controller: 'DeleteCtrl'
         }
       }
     })
 
   .state('app.single', {
-    url: '/playlists/:playlistId',
+    url: '/playlists',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
+        templateUrl: 'templates/playlists.html',
         controller: 'PlaylistCtrl'
       }
     }
