@@ -36,17 +36,18 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'])
     url: '/search',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/search.html',
+        controller: 'AppCtrl'
       }
     }
   })
 
-  .state('app.browse', {
+  .state('app.update', {
       url: '/update',
       views: {
         'menuContent': {
           templateUrl: 'templates/update.html',
-          controller: 'AppCtrl'
+          controller: 'AppCtrl',
         }
       }
     })

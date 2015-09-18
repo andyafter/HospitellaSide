@@ -1,8 +1,8 @@
-var url = 'http://10.10.2.253:5000/';
+var url = 'http://172.23.192.225:5000/';
 
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $cordovaVibration, $ionicPopup, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $cordovaVibration, $ionicPopup, $timeout, $ionicHistory, $state, $stateParams) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -13,8 +13,8 @@ angular.module('starter.controllers', [])
 
   // Form data for the login modal
   $scope.clinicData = {};
-
-  $scope.nameList = {} // used to store all the clinics in the 
+  $scope.updatedClinic = {};
+  $scope.nameList = {}; // used to store all the clinics in the 
                        // database, for autocompletion
 
   // Create the login modal that we will use later
@@ -28,8 +28,13 @@ angular.module('starter.controllers', [])
     console.log("something!!!");
   }
 
+  $scope.test= function($stateParams){
+    alert("test");
+  }
+
   $scope.searchInit = function(){
     var card = document.getElementById("card");
+    //alert("something else!");
     card.style.display = "None";
   }
 
@@ -47,6 +52,18 @@ angular.module('starter.controllers', [])
   $scope.create = function() {
     $scope.modal.show();
   };
+
+  $scope.goToUpdate = function(){
+    console.log("go to update!");
+    var cname = document.getElementById("searchbar").value;
+    window.localStorage['clinic_name'] = cname;
+    //alert($scope.updatedClinic["clinic_name"]);
+    $state.go("app.update");
+  }
+
+  $scope.backToSearch = function(){
+    $ionicHistory.goBack();
+  }
 
   // Perform the login action when the user submits the login form
   $scope.doCreate = function() {
@@ -114,7 +131,6 @@ angular.module('starter.controllers', [])
           var p = document.getElementById('name');
           p.innerHTML = data.name + " " + "updated!";
         }
-        
         deferred.resolve(data);
       } else {
           deferred.reject(data);
@@ -122,6 +138,7 @@ angular.module('starter.controllers', [])
     }).error(function(error) {
         deferred.reject(error);
     });
+    $ionicHistory.goBack();
   }
 
 
@@ -176,6 +193,15 @@ angular.module('starter.controllers', [])
      }
     });
   };
+
+  // init update with params
+  $scope.initUpdate = function(){
+    //alert("init update");
+    var clinicName = document.getElementById('clinicname');
+    var nameInput = document.getElementById('nameinput');
+    clinicName.innerHTML = window.localStorage['clinic_name'];
+    nameInput.value = window.localStorage['clinic_name'];
+  }
 
 })
 
