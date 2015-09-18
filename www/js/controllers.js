@@ -2,7 +2,7 @@ var url = 'http://10.10.2.253:5000/';
 
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $cordovaVibration, $ionicPopup, $timeout) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -13,6 +13,9 @@ angular.module('starter.controllers', [])
 
   // Form data for the login modal
   $scope.clinicData = {};
+
+  $scope.nameList = {} // used to store all the clinics in the 
+                       // database, for autocompletion
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/create.html', {
@@ -25,10 +28,20 @@ angular.module('starter.controllers', [])
     console.log("something!!!");
   }
 
+  $scope.searchInit = function(){
+    var card = document.getElementById("card");
+    card.style.display = "None";
+  }
+
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
     $scope.modal.hide();
   };
+
+  $scope.searchCardOnHold = function(){
+     $cordovaVibration.vibrate(100);
+     this.deleteConfirm();
+  }
 
   // Open the login modal
   $scope.create = function() {
@@ -110,6 +123,59 @@ angular.module('starter.controllers', [])
         deferred.reject(error);
     });
   }
+
+
+  $scope.deleteConfirm = function() {
+   var confirmPopup = $ionicPopup.confirm({
+      title: 'Consume Ice Cream',
+      template: 'Are you sure you want to eat this ice cream?'
+    });
+    confirmPopup.then(function(res) {
+      if(res) {
+        var p = document.getElementById('cardheader');
+        // p.innerHTML works
+        var clinic = {};
+        clinic["name"] = p.innerHTML;
+        $http.post(url+'deleteClinic', clinic).success(function(data) {
+          if(data) {
+            if("error" in data){
+              alert(data.error);
+            }
+            else{
+              var card = document.getElementById('card');
+              var header = document.getElementById("cardheader");
+              var address1 = document.getElementById("address1");
+              var address2 = document.getElementById("address2");
+              var estate = document.getElementById("estate");
+              var telephone = document.getElementById("telephone");
+              var footer = document.getElementById("cardfooter");
+              header.innerHTML = "";
+              footer.innerHTML = "";
+              address1.innerHTML = "";
+              address2.innerHTML = "";
+              estate.innerHTML = "";
+              telephone.innerHTML = "";
+              card.style.display = "None";
+
+              var searchBar = document.getElementById('searchbar');
+              searchBar.value = "";
+            }
+            
+            deferred.resolve(data);
+          } else {
+              deferred.reject(data);
+          }
+        }).error(function(error) {
+            deferred.reject(error);
+        });
+
+     }
+     else {
+        // not deleting
+        console.log('Clinic not deleted');
+     }
+    });
+  };
 
 })
 

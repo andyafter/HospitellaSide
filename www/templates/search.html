@@ -1,12 +1,12 @@
 <ion-view view-title="Search">
-  <ion-content>
+  <ion-content ng-init="searchInit()">
   <div class="list">
-      <label class="item item-input" type="item-text-wrap" >
-        <input type="text" placeholder="Name" ng-model="form.name">
+      <label class="item item-input" type="item-text-wrap">
+        <input type="text" id="searchbar" placeholder="Name" ng-model="form.name">
       </label>
     </div>
     <button class="button button-small button-outline button-positive" ng-click="search(form)">Search</button>
-    <div class="card" id="card" style="display: none;">
+    <div class="card" id="card" style="display: none;" on-hold="searchCardOnHold()">
       <div class="item item-divider" id="cardheader">
       </div>
       <div class="item item-text-wrap" id="cardtext">
