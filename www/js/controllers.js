@@ -1,8 +1,10 @@
-var url = 'http://172.23.192.225:5000/';
+var url = 'http://172.23.194.245:5000/';
 
-angular.module('starter.controllers', [])
+var testList = ["Andy", "And", "Babe", "Json", "Airline"];
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $cordovaVibration, $ionicPopup, $timeout, $ionicHistory, $state, $stateParams) {
+angular.module('starter.controllers', ['starter.services'])
+
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $cordovaVibration, $ionicPopup, $timeout, $ionicHistory, $state, $stateParams, ClinicNameService) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -13,7 +15,7 @@ angular.module('starter.controllers', [])
 
   // Form data for the login modal
   $scope.clinicData = {};
-  $scope.updatedClinic = {};
+  $scope.updatedClinic = "";
   $scope.nameList = {}; // used to store all the clinics in the 
                        // database, for autocompletion
 
@@ -34,7 +36,6 @@ angular.module('starter.controllers', [])
 
   $scope.searchInit = function(){
     var card = document.getElementById("card");
-    //alert("something else!");
     card.style.display = "None";
   }
 
@@ -56,8 +57,7 @@ angular.module('starter.controllers', [])
   $scope.goToUpdate = function(){
     console.log("go to update!");
     var cname = document.getElementById("searchbar").value;
-    window.localStorage['clinic_name'] = cname;
-    //alert($scope.updatedClinic["clinic_name"]);
+    ClinicNameService.clinicName = cname;
     $state.go("app.update");
   }
 
@@ -121,7 +121,7 @@ angular.module('starter.controllers', [])
   }
 
   $scope.update = function(form){
-    console.log(form);
+    form.name = ClinicNameService.getClinicName();
     $http.post(url+'updateClinic', form).success(function(data) {
       if(data) {
         if("error" in data){
@@ -196,11 +196,10 @@ angular.module('starter.controllers', [])
 
   // init update with params
   $scope.initUpdate = function(){
-    //alert("init update");
     var clinicName = document.getElementById('clinicname');
     var nameInput = document.getElementById('nameinput');
-    clinicName.innerHTML = window.localStorage['clinic_name'];
-    nameInput.value = window.localStorage['clinic_name'];
+    clinicName.innerHTML = ClinicNameService.getClinicName();
+    nameInput.value = ClinicNameService.getClinicName();
   }
 
 })

@@ -3,11 +3,11 @@
   <ion-nav-back-button class="button-clear" ng-click="backToSearch()">
   </ion-nav-back-button>
   <div class="bar bar-header bar-dark">
-	  <h1 class="title" id="clinicname">{{updatedClinic.clinicName}}</h1>
+	  <h1 class="title" id="clinicname"></h1>
 	</div>
     <div class="list">
       <label class="item item-input" type="item-text-wrap" >
-        <input type="text" placeholder="Name" id="nameinput" ng-model="form.name"value="{{updatedClinic.clinic_name}}">
+        <input type="text" placeholder="Name" id="nameinput" ng-model="form.name">
       </label>
       <label class="item item-input" type="item-text-wrap" >
         <input type="text" placeholder="Address Line One" ng-model="form.address_1">
