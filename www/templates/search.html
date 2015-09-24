@@ -2,7 +2,7 @@
   <ion-content ng-init="searchInit()">
   <div class="list">
       <label class="item item-input" type="item-text-wrap">
-        <input type="text" id="searchbar" placeholder="Name" ng-model="form.name">
+        <input ion-autocomplete type="text" id="searchbar" placeholder="Name" ng-model="form.name" items-method="prefixList(query)" select-items-label="Select Hospital" items-clicked-method="search(form)">
       </label>
     </div>
     <button class="button button-small button-outline button-positive" ng-click="search(form)">Search</button>

@@ -15,11 +15,22 @@ angular.module('starter.services', [])
 .service('AllClinicsService', function(){
 	return{
 		clinics: [],
-		getClinics :function(){
+		test : "tested!",
+		getClinics : function(){
 			return this.clinics;
 		},
 		getPrefix : function(prefix){
 			return [];
+		}
+	}
+
+})
+
+.service('URLService', function(){
+	return{
+		url: 'http://172.23.194.245:5000/',
+		getURL : function(){
+			return this.url;
 		}
 	}
 

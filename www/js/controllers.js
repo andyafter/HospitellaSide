@@ -1,10 +1,10 @@
-var url = 'http://172.23.194.245:5000/';
+var url = '';
 
-var testList = ["Andy", "And", "Babe", "Json", "Airline"];
+var nameList = [];
 
 angular.module('starter.controllers', ['starter.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $cordovaVibration, $ionicPopup, $timeout, $ionicHistory, $state, $stateParams, ClinicNameService) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $cordovaVibration, $ionicPopup, $timeout, $ionicHistory, $state, $stateParams, ClinicNameService, AllClinicsService, URLService) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -16,8 +16,6 @@ angular.module('starter.controllers', ['starter.services'])
   // Form data for the login modal
   $scope.clinicData = {};
   $scope.updatedClinic = "";
-  $scope.nameList = {}; // used to store all the clinics in the 
-                       // database, for autocompletion
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/create.html', {
@@ -28,15 +26,57 @@ angular.module('starter.controllers', ['starter.services'])
 
   $scope.init = function(){
     console.log("something!!!");
+    url = URLService.getURL();
   }
 
-  $scope.test= function($stateParams){
-    alert("test");
+  $scope.test= function(){
+    return nameList;
+  }
+
+  $scope.prefixList = function(query){
+    result = [];
+    //result.push();
+    console.log(query);
+    for(i in nameList){
+      name = nameList[i].toLowerCase();
+      if(query.length>name.length){
+        continue;
+      }
+      else{
+        if(query.toLowerCase() == name.slice(0, query.length)){
+          result.push(nameList[i]);
+        }
+      }
+    }
+    return result.sort();
   }
 
   $scope.searchInit = function(){
     var card = document.getElementById("card");
     card.style.display = "None";
+    $http.get(url+'queryall').
+      then(function(response) {
+
+        if(response) {
+          data = response.data;
+          if("error" in data){
+            alert(data.error);
+          }
+          else{
+            AllClinicsService.clinics = data;
+            for(i in data){
+              nameList.push(data[i].name);
+            }
+          }
+
+        } else {
+          alert('no data');
+        }
+    }, function(response) {
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+      console.log("error");
+    });
   }
 
   // Triggered in the login modal to close it
