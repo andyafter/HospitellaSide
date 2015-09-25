@@ -150,7 +150,7 @@ angular.module('starter.controllers', ['starter.services'])
           estate.innerHTML = data.estate
           telephone.innerHTML = data.telephone
         }
-        
+
         deferred.resolve(data);
       } else {
           deferred.reject(data);
@@ -217,7 +217,7 @@ angular.module('starter.controllers', ['starter.services'])
               var searchBar = document.getElementById('searchbar');
               searchBar.value = "";
             }
-            
+
             deferred.resolve(data);
           } else {
               deferred.reject(data);
@@ -277,7 +277,7 @@ angular.module('starter.controllers', ['starter.services'])
           p.innerHTML = data.id
           success.innerHTML = data.name + " " + "deleted!"
         }
-        
+
         deferred.resolve(data);
       } else {
           deferred.reject(data);

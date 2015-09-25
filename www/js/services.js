@@ -28,7 +28,7 @@ angular.module('starter.services', [])
 
 .service('URLService', function(){
 	return{
-		url: 'http://172.23.194.245:5000/',
+		url: 'http://10.10.2.226:5000/',
 		getURL : function(){
 			return this.url;
 		}
